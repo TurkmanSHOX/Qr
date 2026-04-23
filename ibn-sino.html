@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibn Sino</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#fff;
+    color:#000;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+/* HEADER */
+header{
+    background:#111;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.brand img{height:40px;}
+
+.site-title{
+    font-weight:bold;
+}
+
+/* FLAGS */
+.lang img{
+    width:40px;
+    height:26px;
+    object-fit:cover;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+/* CONTENT */
+.container{
+    flex:1;
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+    display:flex;
+    gap:40px;
+    align-items:center;
+}
+
+.text{flex:1;}
+
+h1{font-size:40px;margin-bottom:10px;}
+p{line-height:1.7;margin-bottom:12px;color:#333;}
+
+/* IMAGE */
+.image{flex:1;text-align:center;}
+.image img{
+    width:100%;
+    max-width:380px;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+    background:#111;
+    color:#aaa;
+    padding:15px 30px;
+    display:flex;
+    align-items:center;
+    margin-top:auto;
+}
+
+/* footer layout */
+.footer-center{
+    flex:1;
+    text-align:center;
+}
+
+.footer-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* limon style */
+.limon{
+    color:#FFD700;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.footer-logo{
+    height:40px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+    .container{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand" onclick="goMuseum()">
+        <img src="logo.png">
+        <span class="site-title" id="siteTitle"></span>
+    </div>
+
+    <div class="lang">
+        <img src="https://flagcdn.com/w40/uz.png" onclick="setLang('uz')">
+        <img src="https://flagcdn.com/w40/ru.png" onclick="setLang('ru')">
+        <img src="https://flagcdn.com/w40/gb.png" onclick="setLang('en')">
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="text" id="content"></div>
+
+    <div class="image">
+        <img src="ibn_sino.jfif" alt="Ibn Sino">
+    </div>
+
+</div>
+
+<footer>
+
+    <div style="width:120px;"></div>
+
+    <div class="footer-center">
+        © Barcha huquqlar himoyalangan
+    </div>
+
+    <div class="footer-right">
+        <span class="limon" onclick="goLimon()">limon.uz</span>
+        <img src="main-white-logo.webp" class="footer-logo" onclick="goLimon()">
+    </div>
+
+</footer>
+
+<script>
+
+/* HEADER TITLE (3 LANG) */
+const titles = {
+    uz: "Xiva Ichan Qal’a muzey-qo‘riqxonasi",
+    ru: "Хивинский музей-заповедник Ичан-Кала",
+    en: "Khiva Ichan Kala State Museum Reserve"
+};
+
+/* CONTENT */
+const data = {
+
+uz: `
+<h1>Abu Ali ibn Sino</h1>
+<p>Buyuk tabib, faylasuf va qomusiy olim Abu Ali ibn Sino 980-yilda Buxoroning Afshona qishlog‘ida tug‘ilgan.</p>
+<p>U jahon ilm-fani tarixida alohida o‘rin egallaydi. Xorazm Ma’mun akademiyasida faoliyat yuritib, tibbiyot, falsafa, matematika, astronomiya va boshqa fanlar rivojiga katta hissa qo‘shgan.</p>
+<p>Uning “Tib qonunlari” asari asrlar davomida Yevropa va Sharq tibbiyotida asosiy qo‘llanma bo‘lib xizmat qilgan.</p>
+<p><b>Davr:</b> X–XI asr</p>
+<p><b>Yo‘nalishlar:</b> Tibbiyot, falsafa</p>
+`,
+
+ru: `
+<h1>Абу Али ибн Сина</h1>
+<p>Великий врач, философ и энциклопедический ученый Абу Али ибн Сина родился в 980 году в селении Афшона близ Бухары.</p>
+<p>Он занимает особое место в истории мировой науки. Работал в Хорезмской академии Мамуна и внес большой вклад в развитие медицины, философии, математики и астрономии.</p>
+<p>Его труд «Канон врачебной науки» на протяжении веков служил основным руководством в медицине Востока и Европы.</p>
+<p><b>Период:</b> X–XI века</p>
+<p><b>Направления:</b> Медицина, философия</p>
+`,
+
+en: `
+<h1>Abu Ali Ibn Sina</h1>
+<p>The great physician, philosopher, and polymath Abu Ali Ibn Sina was born in 980 in the village of Afshona near Bukhara.</p>
+<p>He holds a significant place in the history of world science. He worked at the Khorezm Mamun Academy and made major contributions to medicine, philosophy, mathematics, and astronomy.</p>
+<p>His work “The Canon of Medicine” served as a key reference in Eastern and European medicine for centuries.</p>
+<p><b>Period:</b> 10th–11th century</p>
+<p><b>Fields:</b> Medicine, philosophy</p>
+`
+
+};
+
+/* LANGUAGE SWITCH */
+function setLang(lang){
+    document.getElementById("content").innerHTML = data[lang];
+    document.getElementById("siteTitle").innerText = titles[lang];
+    localStorage.setItem("lang", lang);
+}
+
+/* LINKS */
+function goMuseum(){
+    window.open("https://www.khivamuseum.uz/","_blank");
+}
+
+function goLimon(){
+    window.open("https://limon.uz/","_blank");
+}
+
+/* INIT */
+setLang(localStorage.getItem("lang") || "uz");
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ibn Sino</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family: Arial, sans-serif;
+    background:#fff;
+    color:#000;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+/* HEADER */
+header{
+    background:#111;
+    color:#fff;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 40px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+}
+
+.brand img{height:40px;}
+
+.site-title{
+    font-weight:bold;
+}
+
+/* FLAGS */
+.lang img{
+    width:40px;
+    height:26px;
+    object-fit:cover;
+    cursor:pointer;
+    margin-left:10px;
+}
+
+/* CONTENT */
+.container{
+    flex:1;
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+    display:flex;
+    gap:40px;
+    align-items:center;
+}
+
+.text{flex:1;}
+
+h1{font-size:40px;margin-bottom:10px;}
+p{line-height:1.7;margin-bottom:12px;color:#333;}
+
+/* IMAGE */
+.image{flex:1;text-align:center;}
+.image img{
+    width:100%;
+    max-width:380px;
+    border-radius:10px;
+}
+
+/* FOOTER */
+footer{
+    background:#111;
+    color:#aaa;
+    padding:15px 30px;
+    display:flex;
+    align-items:center;
+    margin-top:auto;
+}
+
+/* footer layout */
+.footer-center{
+    flex:1;
+    text-align:center;
+}
+
+.footer-right{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+/* limon style */
+.limon{
+    color:#FFD700;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.footer-logo{
+    height:40px;
+    cursor:pointer;
+}
+
+/* RESPONSIVE */
+@media(max-width:800px){
+    .container{
+        flex-direction:column;
+        text-align:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand" onclick="goMuseum()">
+        <img src="logo.png">
+        <span class="site-title" id="siteTitle"></span>
+    </div>
+
+    <div class="lang">
+        <img src="https://flagcdn.com/w40/uz.png" onclick="setLang('uz')">
+        <img src="https://flagcdn.com/w40/ru.png" onclick="setLang('ru')">
+        <img src="https://flagcdn.com/w40/gb.png" onclick="setLang('en')">
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="text" id="content"></div>
+
+    <div class="image">
+        <img src="Zamaxshariy.jpg" alt="Ibn Sino">
+    </div>
+
+</div>
+
+<footer>
+
+    <div style="width:120px;"></div>
+
+    <div class="footer-center">
+        © Barcha huquqlar himoyalangan
+    </div>
+
+    <div class="footer-right">
+        <span class="limon" onclick="goLimon()">limon.uz</span>
+        <img src="main-white-logo.webp" class="footer-logo" onclick="goLimon()">
+    </div>
+
+</footer>
+
+<script>
+
+/* HEADER TITLE (3 LANG) */
+const titles = {
+    uz: "Xiva Ichan Qal’a muzey-qo‘riqxonasi",
+    ru: "Хивинский музей-заповедник Ичан-Кала",
+    en: "Khiva Ichan Kala State Museum Reserve"
+};
+
+/* CONTENT */
+const data = {
+
+uz: `
+<h1>Mahmud az-Zamaxshariy</h1>
+<p>Buyuk tilshunos, mufassir va adib Mahmud az-Zamaxshariy 1075-yilda Xorazmning Zamaxshar qishlog‘ida tug‘ilgan.</p>
+<p>U arab tili grammatikasi, tafsir va adabiyot sohalarida katta ilmiy meros qoldirgan.</p>
+<p>Uning “Al-Kashshof” asari Qur’on tafsirining muhim manbalaridan biridir.</p>
+<p><b>Davr:</b> XI–XII asr</p>
+<p><b>Yo‘nalishlar:</b> Tilshunoslik, tafsir, adabiyot</p>
+`,
+
+ru: `
+<h1>Махмуд аз-Замахшари</h1>
+<p>Великий лингвист, толкователь Корана и писатель Махмуд аз-Замахшари родился в 1075 году в Хорезме.</p>
+<p>Он оставил значительное научное наследие в области арабской грамматики, тафсира и литературы.</p>
+<p>Его труд «Аль-Кашшаф» является одним из важнейших источников толкования Корана.</p>
+<p><b>Период:</b> XI–XII века</p>
+<p><b>Направления:</b> Лингвистика, тафсир, литература</p>
+`,
+
+en: `
+<h1>Mahmud az-Zamakhshari</h1>
+<p>Mahmud az-Zamakhshari was a great linguist, Quran interpreter, and writer born in 1075 in Khorezm.</p>
+<p>He left a significant scientific legacy in Arabic grammar, tafsir, and literature.</p>
+<p>His work “Al-Kashshaf” is one of the most important sources of Quranic interpretation.</p>
+<p><b>Period:</b> 11th–12th century</p>
+<p><b>Fields:</b> Linguistics, tafsir, literature</p>
+`
+
+};
+
+/* LANGUAGE SWITCH */
+function setLang(lang){
+    document.getElementById("content").innerHTML = data[lang];
+    document.getElementById("siteTitle").innerText = titles[lang];
+    localStorage.setItem("lang", lang);
+}
+
+/* LINKS */
+function goMuseum(){
+    window.open("https://www.khivamuseum.uz/","_blank");
+}
+
+function goLimon(){
+    window.open("https://limon.uz/","_blank");
+}
+
+/* INIT */
+setLang(localStorage.getItem("lang") || "uz");
+
+</script>
+
+</body>
+</html>
